@@ -44,7 +44,14 @@ if __name__ == '__main__':
     comments_file.close()
 
     print(word_tokens)
-    print(url_list)
+    print(len(url_list))
+    url_count = {}
+    for item in url_list:
+        if item.split('/')[2] not in list(url_count.keys()):
+            url_count.setdefault(item.split('/')[2], 1)
+        else:
+            url_count.update({item.split('/')[2]: int(url_count.get(item.split('/')[2]))+1})
+    print(url_count)
 
     with open("YouTube_comments_NLP.csv", "w",  newline='', encoding='utf-8') as NLP_file:
         comment_writer = csv.writer(NLP_file, delimiter=',', quoting=csv.QUOTE_MINIMAL)
